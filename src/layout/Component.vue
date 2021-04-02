@@ -103,7 +103,6 @@ export default defineComponent({
 	}
 
 	.content {
-		background-color: #0ff;
 		padding: 30px 20px;
 		flex-grow: 1;
 	}

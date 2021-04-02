@@ -1,13 +1,5 @@
 <template>
 	<li>
-		<a class="dropdown-item" href="#">
-            <slot></slot>
-        </a>
+        <slot></slot>
 	</li>
 </template>
-<script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-})
-</script>
