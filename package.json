@@ -13,6 +13,7 @@
     "bootstrap": "^5.0.0-beta3",
     "prismjs": "^1.23.0",
     "vue": "^3.0.0",
+    "vue-prismjs": "^1.2.0",
     "vue-router": "^4.0.5"
   },
   "devDependencies": {
