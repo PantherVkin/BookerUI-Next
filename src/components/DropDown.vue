@@ -1,10 +1,7 @@
 <template>
 	<div class="dropdown">
 		<div class="dropdown-link">
-			<button
-				ref="DropDownRef"
-				@[trigger].stop="handleTrigger"
-			>
+			<button ref="DropDownRef" @[trigger].stop="handleTrigger">
 				<slot name="title"> {{ dropdownLink }} </slot>
 			</button>
 		</div>
@@ -30,8 +27,12 @@ export default defineComponent({
 			default: 'click',
 		},
 		command: {
-			type: Function
-		}
+			type: Function,
+		},
+		timeout: {
+			type: Number,
+			default: 200,
+		},
 	},
 	setup(props) {
 		const DropDownRef = ref(null)
@@ -41,10 +42,14 @@ export default defineComponent({
 
 		const handleTrigger = () => {
 			if (props.trigger == 'click') {
-				isVisible.value = !isVisible.value
+				setTimeout(() => {
+					isVisible.value = !isVisible.value
+				}, props.timeout)
 			}
 			if (props.trigger == 'mouseenter') {
-				isVisible.value = true
+				setTimeout(() => {
+					isVisible.value = true
+				}, props.timeout)
 			}
 			if (props.command) {
 				props.command()

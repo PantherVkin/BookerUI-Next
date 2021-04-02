@@ -93,7 +93,6 @@ export default defineComponent({
 	.left {
 		padding: 30px 0 0 40px;
 		width: 200px;
-		height: 800px;
 		overflow: scroll;
 		background-color: #ff0;
 
