@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<nav class="navbar">
-			<router-link :to="{name: 'design'}" class="navbar-brand" href="#">
+			<router-link :to="{ name: 'design' }" class="navbar-brand" href="#">
 				BookerUI+
 			</router-link>
 			<div class="navbar-content">
@@ -10,17 +10,20 @@
 					class="navbar-search"
 					placeholder="搜索文档"
 				/>
-				<a
-					href="#"
-					v-for="(nav,index) in navList"
-					:key="'nav' + index"
-					class="navbar-item"
-					:class="{
-						'active': nav.isActive
-					}"
+				<span
+					v-for="(nav, index) in navList"
 					@click.stop="handleNav(nav)"
-					>{{ nav.title }}</a
+					:key="'nav' + index"
 				>
+					<router-link
+						:to="{ name: nav.router }"
+						class="navbar-item"
+						:class="{
+							active: nav.isActive,
+						}"
+						>{{ nav.title }}</router-link
+					>
+				</span>
 			</div>
 		</nav>
 
@@ -31,35 +34,46 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue'
-import { useRouter } from "vue-router";
-import { NavProps } from "./hooks/TypeProps";
+import { defineComponent, reactive } from 'vue'
+import { useRoute } from 'vue-router'
+import { NavProps } from './hooks/TypeProps'
+import useClickNav from './hooks/useClickNav'
 
 export default defineComponent({
 	name: 'App',
 	components: {},
 	setup() {
-		const router = useRouter()
-		const navList = reactive([{
+		const route = useRoute()
+		const navList = reactive([
+			{
 				title: '指南',
 				router: 'design',
-				isActive: true
+				fullPath: '/guide/',
+				isActive: true,
 			},
 			{
 				title: '组件',
 				router: 'changelog',
-				isActive: false
+				fullPath: '/component/',
+				isActive: false,
 			},
 			{
 				title: '资源',
 				router: 'resource',
-				isActive: false
+				fullPath: '/resource',
+				isActive: false,
 			},
 		])
 
+		setTimeout(() => {
+			const curNav = useClickNav(route, navList)
+			if (curNav) {
+				handleNav(curNav)
+			}
+		}, 100)
+
 		const handleNav = (nav: NavProps) => {
-			router.push({name: nav.router})
-			navList.forEach( ele => {
+			navList.forEach((ele) => {
 				if (ele.title === nav.title) {
 					ele.isActive = true
 				} else {

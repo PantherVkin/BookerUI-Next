@@ -1,54 +1,74 @@
 <template>
 	<div class="guide">
 		<div class="left">
-			<h4
-				v-for="(guideNav, index) in guideNavList"
-				:key="'guideNav' + index"
-                @click.stop = "handleGuideNav(guideNav)"
+			<h4>开发指南</h4>
+			<h6
+				v-for="(compNav, index) in navList"
+				:key="'componentNav' + index"
+				@click.stop="handleCompNav(compNav)"
 			>
-				<router-link :to="{ name: guideNav.router }"
-                    :class="{
-						'active': guideNav.isActive
+				<router-link
+					:to="{ name: compNav.router }"
+					:class="{
+						active: compNav.isActive,
 					}"
-                
-                >{{
-					guideNav.title
-				}}</router-link>
-			</h4>
+					>{{ compNav.title }}</router-link
+				>
+			</h6>
+
+			<h4>组件</h4>
+			<h6
+				v-for="(compNav, index) in compNavList"
+				:key="'compNav' + index"
+				@click.stop="handleCompNav(compNav)"
+			>
+				<router-link
+					:to="{ name: compNav.router }"
+					:class="{
+						active: compNav.isActive,
+					}"
+					>{{ compNav.title }}</router-link
+				>
+			</h6>
 		</div>
+
 		<div class="content">
 			<router-view></router-view>
 		</div>
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
-import { NavProps } from "../hooks/TypeProps";
+import { defineComponent, reactive, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { NavProps } from '../hooks/TypeProps'
+import { NavList, CompNavList } from '../hooks/CompNavList'
+import useClickNav from "../hooks/useClickNav";
 
 export default defineComponent({
 	name: 'App',
 	components: {},
 	setup() {
-		const guideNavList = reactive([
-			{
-				title: '变更日志',
-				router: 'changelog',
-				isActive: true,
-			},
-			{
-				title: '安装',
-				router: 'installation',
-				isActive: false,
-            },
-            {
-				title: '快速开始',
-				router: 'quickstart',
-				isActive: false,
-			},
-		])
+		const route = useRoute()
+		const navList: NavProps[] = reactive(NavList)
+		const compNavList: NavProps[] = reactive(CompNavList)
 
-		const handleGuideNav = (tab: NavProps) => {
-			guideNavList.forEach((ele) => {
+		onMounted(() => {
+			const curNav =	useClickNav(route, navList) || useClickNav(route, compNavList)
+			if (curNav) {
+				handleCompNav(curNav)
+			}
+		})
+
+		const handleCompNav = (tab: NavProps) => {
+			navList.forEach((ele) => {
+				if (ele.title === tab.title) {
+					ele.isActive = true
+				} else {
+					ele.isActive = false
+				}
+			})
+
+			compNavList.forEach((ele) => {
 				if (ele.title === tab.title) {
 					ele.isActive = true
 				} else {
@@ -58,8 +78,9 @@ export default defineComponent({
 		}
 
 		return {
-			handleGuideNav,
-			guideNavList,
+			navList,
+			compNavList,
+			handleCompNav,
 		}
 	},
 })
@@ -74,11 +95,11 @@ export default defineComponent({
 		width: 200px;
 		height: 800px;
 		overflow: scroll;
-        background-color: #ff0;
-        
-        .active {
-            color: #1989fa;
-        }
+		background-color: #ff0;
+
+		.active {
+			color: #1989fa;
+		}
 	}
 
 	.content {

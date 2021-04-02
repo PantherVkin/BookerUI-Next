@@ -44,8 +44,13 @@ const router = createRouter({
           name: 'quickstart',
           component: () => import('./page/component/Quickstart.vue'),
         },
+        {
+          path: '/component/dropdown',
+          name: 'dropdown',
+          component: () => import('./page/component/DropDown.vue'),
+        },
       ]
-
+      
     },
     {
       path: '/resource',
