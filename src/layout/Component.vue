@@ -1,43 +1,95 @@
 <template>
 	<div class="guide">
-        <div class="left">
-            left
-        </div>
-        <div class="content">
-            content
-        </div>
-        <div class="right">
-            right
-        </div>
-    </div>
+		<div class="left">
+			<h4
+				v-for="(guideNav, index) in guideNavList"
+				:key="'guideNav' + index"
+                @click.stop = "handleGuideNav(guideNav)"
+			>
+				<router-link :to="{ name: guideNav.router }"
+                    :class="{
+						'active': guideNav.isActive
+					}"
+                
+                >{{
+					guideNav.title
+				}}</router-link>
+			</h4>
+		</div>
+		<div class="content">
+			<router-view></router-view>
+		</div>
+	</div>
 </template>
+<script lang="ts">
+import { defineComponent, reactive } from 'vue'
+import { NavProps } from "../hooks/TypeProps";
 
+export default defineComponent({
+	name: 'App',
+	components: {},
+	setup() {
+		const guideNavList = reactive([
+			{
+				title: '变更日志',
+				router: 'changelog',
+				isActive: true,
+			},
+			{
+				title: '安装',
+				router: 'installation',
+				isActive: false,
+            },
+            {
+				title: '快速开始',
+				router: 'quickstart',
+				isActive: false,
+			},
+		])
+
+		const handleGuideNav = (tab: NavProps) => {
+			guideNavList.forEach((ele) => {
+				if (ele.title === tab.title) {
+					ele.isActive = true
+				} else {
+					ele.isActive = false
+				}
+			})
+		}
+
+		return {
+			handleGuideNav,
+			guideNavList,
+		}
+	},
+})
+</script>
 
 <style lang="scss" scoped>
 .guide {
-    display: flex;
+	display: flex;
 
-    .left {
-        padding: 30px 0 0 40px;
-        width: 200px;
-        height: 800px;
-        overflow: scroll;
+	.left {
+		padding: 30px 0 0 40px;
+		width: 200px;
+		height: 800px;
+		overflow: scroll;
         background-color: #ff0;
+        
+        .active {
+            color: #1989fa;
+        }
+	}
 
-    }
+	.content {
+		background-color: #0ff;
+		padding: 30px 20px;
+		flex-grow: 1;
+	}
 
-    .content {
-        padding: 30px 20px;
-        flex-grow: 1;
-        background-color: #0ff;
-    }
-
-    .right {
-        background-color: #f40;
-        padding: 30px 0 0 10px;
-        width: 100px;
-        height: 800px;
-        overflow: scroll;
-    }
+	a {
+		text-decoration: none;
+		color: #333;
+	}
 }
 </style>

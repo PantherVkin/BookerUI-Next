@@ -27,7 +27,25 @@ const router = createRouter({
     {
       path: '/component',
       name: 'component',
-      component: Component
+      component: Component,
+      children: [
+        {
+          path: '/component/changelog',
+          name: 'changelog',
+          component: () =>  import('./page/component/Changelog.vue'),
+        },
+        {
+          path: '/component/installation',
+          name: 'installation',
+          component: () => import('./page/component/Installation.vue'),
+        },
+        {
+          path: '/component/quickstart',
+          name: 'quickstart',
+          component: () => import('./page/component/Quickstart.vue'),
+        },
+      ]
+
     },
     {
       path: '/resource',

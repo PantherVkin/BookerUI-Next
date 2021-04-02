@@ -1,37 +1,60 @@
 <template>
 	<div class="guide">
-        <div class="left">
-            <h4>
-                <router-link :to="{name: 'design'}">指南</router-link>
-            </h4>
-            <h4>
-                <router-link :to="{name: 'nav'}">导航</router-link>
-            </h4>
-        </div>
-        <div class="content">
-            <router-view></router-view>
-        </div>
-    </div>
+		<div class="left">
+			<h4
+				v-for="(guideNav, index) in guideNavList"
+				:key="'guideNav' + index"
+                @click.stop = "handleGuideNav(guideNav)"
+			>
+				<router-link :to="{ name: guideNav.router }"
+                    :class="{
+						'active': guideNav.isActive
+					}"
+                
+                >{{
+					guideNav.title
+				}}</router-link>
+			</h4>
+		</div>
+		<div class="content">
+			<router-view></router-view>
+		</div>
+	</div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive } from 'vue'
+import { NavProps } from "../hooks/TypeProps";
 
 export default defineComponent({
 	name: 'App',
 	components: {},
 	setup() {
-		const activeTab = ref('guide')
-		const handleTab = (e: MouseEvent) => {
-			const target = e.target as Element
-			if (target.nodeName == 'A') {
-				activeTab.value = '' +  target.getAttribute('name')
-			}
-			return 0
+		const guideNavList = reactive([
+			{
+				title: '设计原则',
+				router: 'design',
+				isActive: true,
+			},
+			{
+				title: '导航',
+				router: 'nav',
+				isActive: false,
+			},
+		])
+
+		const handleGuideNav = (tab: NavProps) => {
+			guideNavList.forEach((ele) => {
+				if (ele.title === tab.title) {
+					ele.isActive = true
+				} else {
+					ele.isActive = false
+				}
+			})
 		}
 
 		return {
-			handleTab,
-			activeTab,
+			handleGuideNav,
+			guideNavList,
 		}
 	},
 })
@@ -39,26 +62,29 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .guide {
-    display: flex;
+	display: flex;
 
-    .left {
-        padding: 30px 0 0 40px;
-        width: 200px;
-        height: 800px;
-        overflow: scroll;
+	.left {
+		padding: 30px 0 0 40px;
+		width: 200px;
+		height: 800px;
+		overflow: scroll;
         background-color: #ff0;
+        
+        .active {
+            color: #1989fa;
+        }
+	}
 
-    }
+	.content {
+		background-color: #0ff;
+		padding: 30px 20px;
+		flex-grow: 1;
+	}
 
-    .content {
-        background-color: #0ff;
-        padding: 30px 20px;
-        flex-grow: 1;
-    }
-
-    a {
-        text-decoration: none;
-        color: #333;
-    }
+	a {
+		text-decoration: none;
+		color: #333;
+	}
 }
 </style>
