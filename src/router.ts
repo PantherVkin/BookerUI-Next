@@ -47,7 +47,7 @@ const router = createRouter({
         {
           path: '/component/dropdown',
           name: 'dropdown',
-          component: () => import('./page/component/DropDown.vue'),
+          component: () => import('./page/component/DropDownPage.vue'),
         },
       ]
       

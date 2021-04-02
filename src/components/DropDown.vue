@@ -1,67 +1,100 @@
 <template>
 	<div class="dropdown">
-		<div @click="isShowRef = !isShowRef"
-					ref="dropdownRef">
-			<slot name="dropdownTitle">
-				<button
-					class="btn btn-primary btn-sm dropdown-toggle px-3 shadow-none"
-					type="button"
-					id="dropdownMenuButton"
-					data-bs-toggle="dropdown"
-					aria-expanded="false"
-				>
-					{{ DropDownTitle }}
-				</button>
-			</slot>
+		<div class="dropdown-link">
+			<button
+				ref="DropDownRef"
+				@[trigger].stop="handleTrigger"
+			>
+				<slot name="title"> {{ dropdownLink }} </slot>
+			</button>
 		</div>
 
-		<ul
-			v-if="isShowRef"
-			class="dropdown-menu py-0"
-			aria-labelledby="dropdownMenuButton"
-			:style="{ display: 'block' }"
-		>
+		<ul class="dropdown-menu" v-show="isVisible">
 			<slot></slot>
 		</ul>
 	</div>
 </template>
-<script>
-import { defineComponent, ref, watch, computed } from 'vue'
-import useClickOutside from '../hooks/useClickOutside.ts'
+<script lang="ts">
+import { defineComponent, PropType, ref } from 'vue'
+import useClickOutside from '../hooks/useClickOutside'
 
+type EventProps = 'click' | 'mouseenter'
 export default defineComponent({
 	props: {
-		title: {
+		dropdownLink: {
 			type: String,
 			default: 'DropDown',
 		},
+		trigger: {
+			type: String as PropType<EventProps>,
+			default: 'click',
+		},
+		command: {
+			type: Function
+		}
 	},
 	setup(props) {
-		const DropDownTitle = computed(() => {
-			return props.title
-		})
-		const isShowRef = ref(false)
-		const dropdownRef = ref(null)
+		const DropDownRef = ref(null)
 
-		const isOut = useClickOutside(dropdownRef)
-		watch(isOut, () => {
-			if (isOut.value) {
-				isShowRef.value = false
+		const isOut = useClickOutside(DropDownRef)
+		const isVisible = isOut
+
+		const handleTrigger = () => {
+			if (props.trigger == 'click') {
+				isVisible.value = !isVisible.value
 			}
-		})
+			if (props.trigger == 'mouseenter') {
+				isVisible.value = true
+			}
+			if (props.command) {
+				props.command()
+			}
+		}
+
 		return {
-			DropDownTitle,
-			isShowRef,
-			dropdownRef,
+			isVisible,
+			DropDownRef,
+			handleTrigger,
 		}
 	},
 })
 </script>
-<style lang="scss" scoped>
-.btn-primary {
-	&:hover {
+<style lang="scss">
+.dropdown {
+	width: 200px;
+
+	.dropdown-link {
+		button {
+			height: 40px;
+			width: 100%;
+			outline: none;
+			border: none;
+			background-color: #1989fa;
+			color: #fff;
+			cursor: pointer;
+
+			&:hover {
+				opacity: 0.5;
+			}
+		}
+	}
+
+	.dropdown-menu {
 		background-color: #fff;
-		color: #0d6efd;
+		box-shadow: 0 0 1px 0 #666;
+		padding: 0;
+
+		li {
+			padding: 10px;
+			list-style: none;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #f2f6fc;
+				color: #1989fa;
+				opacity: 0.5;
+			}
+		}
 	}
 }
 </style>

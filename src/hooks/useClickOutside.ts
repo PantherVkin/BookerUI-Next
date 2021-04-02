@@ -4,7 +4,7 @@ const useClickOutside = (element: Ref) => {
     const isClickOutside = ref(false)
 
     const handleClick = (e: MouseEvent) => {
-        if (!element.value.contains(e.target)) {
+        if (element.value.contains(e.target)) {
             isClickOutside.value = true
         } else {
             isClickOutside.value = false
@@ -18,7 +18,6 @@ const useClickOutside = (element: Ref) => {
     onUnmounted(() => {
         document.removeEventListener('click', handleClick)
     })
-
     return isClickOutside
 }
 
