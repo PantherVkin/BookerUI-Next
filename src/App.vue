@@ -1,40 +1,88 @@
 <template>
 	<div class="container">
 		<nav class="navbar">
-			<router-link to="/guide" class="navbar-brand" href="#"> Booker+ </router-link>
-			<div class="navbar-content">
+			<router-link :to="{name: 'design'}" class="navbar-brand" href="#">
+				BookerUI+
+			</router-link>
+			<div class="navbar-content" @click="handleTab">
 				<input
 					type="text"
 					class="navbar-search"
 					placeholder="搜索文档"
 				/>
-				<router-link to="/guide" class="navbar-item active" href="#">指南</router-link>
-				<router-link to="/component" class="navbar-item" href="#">组件</router-link>
-				<a class="navbar-item" href="#">GiuHub</a>
+				<a
+					href="#"
+					v-for="(tab,index) in tabList"
+					:key="'tab' + index"
+					class="navbar-item"
+					:class="{
+						'active': tab.isActive
+					}"
+					@click.stop="handleTab(tab)"
+					>{{ tab.title }}</a
+				>
 			</div>
 		</nav>
 
-		<router-view></router-view>
+		<div class="main">
+			<router-view></router-view>
+		</div>
 	</div>
-
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
+import { useRouter } from "vue-router";
+
+interface TabProps {
+	title: string;
+	router: string;
+	isActive: boolean
+}
+
 
 export default defineComponent({
 	name: 'App',
 	components: {},
 	setup() {
+		const router = useRouter()
+		const tabList = reactive([{
+				title: '指南',
+				router: 'design',
+				isActive: true
+			},
+			{
+				title: '组件',
+				router: 'component',
+				isActive: false
+			},
+			{
+				title: '资源',
+				router: 'resource',
+				isActive: false
+			},
+		])
 
-		const handleTab = () => {
+		const activeTab = ref('guide')
+		const handleTab = (tab: TabProps) => {
+			router.push({name: tab.router})
+			tabList.forEach( ele => {
+				if (ele.title === tab.title) {
+					ele.isActive = true
+				} else {
+					ele.isActive = false
+				}
+			})
+
 			return 0
 		}
 
 		return {
-
+			tabList,
+			handleTab,
+			activeTab,
 		}
-	}
+	},
 })
 </script>
 
@@ -43,13 +91,9 @@ export default defineComponent({
 	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
 }
 
 .container {
-	width: 90%;
-	margin: 0 auto;
 	.navbar {
 		display: flex;
 		justify-content: space-between;
@@ -62,11 +106,10 @@ export default defineComponent({
 			padding: 0 20px;
 			outline: none;
 			border: 1px solid #ccc;
-			
+
 			&:focus {
 				border-color: #1989fa;
 			}
-
 		}
 
 		a {

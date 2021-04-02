@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Guide from './views/Guide.vue'
-import Component from './views/Component.vue'
+import Guide from './layout/Guide.vue'
+import Component from './layout/Component.vue'
+import Resource from './layout/Resource.vue'
 
 const routerHistory = createWebHistory()
 const router = createRouter({
@@ -9,12 +10,29 @@ const router = createRouter({
     {
       path: '/guide',
       name: 'guide',
-      component: Guide
+      component: Guide,
+      children: [
+        {
+          path: '/guide/design',
+          name: 'design',
+          component: () =>  import('./page/guide/Design.vue'),
+        },
+        {
+          path: '/guide/nav',
+          name: 'nav',
+          component: () => import('./page/guide/Nav.vue'),
+        },
+      ]
     },
     {
       path: '/component',
       name: 'component',
       component: Component
+    },
+    {
+      path: '/resource',
+      name: 'resource',
+      component: Resource
     }
   ]
 })
