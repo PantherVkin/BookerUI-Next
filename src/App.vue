@@ -4,7 +4,7 @@
 			<router-link :to="{name: 'design'}" class="navbar-brand" href="#">
 				BookerUI+
 			</router-link>
-			<div class="navbar-content" @click="handleTab">
+			<div class="navbar-content">
 				<input
 					type="text"
 					class="navbar-search"
@@ -12,14 +12,14 @@
 				/>
 				<a
 					href="#"
-					v-for="(tab,index) in tabList"
-					:key="'tab' + index"
+					v-for="(nav,index) in navList"
+					:key="'nav' + index"
 					class="navbar-item"
 					:class="{
-						'active': tab.isActive
+						'active': nav.isActive
 					}"
-					@click.stop="handleTab(tab)"
-					>{{ tab.title }}</a
+					@click.stop="handleNav(nav)"
+					>{{ nav.title }}</a
 				>
 			</div>
 		</nav>
@@ -33,27 +33,21 @@
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue'
 import { useRouter } from "vue-router";
-
-interface TabProps {
-	title: string;
-	router: string;
-	isActive: boolean
-}
-
+import { NavProps } from "./hooks/TypeProps";
 
 export default defineComponent({
 	name: 'App',
 	components: {},
 	setup() {
 		const router = useRouter()
-		const tabList = reactive([{
+		const navList = reactive([{
 				title: '指南',
 				router: 'design',
 				isActive: true
 			},
 			{
 				title: '组件',
-				router: 'component',
+				router: 'changelog',
 				isActive: false
 			},
 			{
@@ -63,24 +57,20 @@ export default defineComponent({
 			},
 		])
 
-		const activeTab = ref('guide')
-		const handleTab = (tab: TabProps) => {
-			router.push({name: tab.router})
-			tabList.forEach( ele => {
-				if (ele.title === tab.title) {
+		const handleNav = (nav: NavProps) => {
+			router.push({name: nav.router})
+			navList.forEach( ele => {
+				if (ele.title === nav.title) {
 					ele.isActive = true
 				} else {
 					ele.isActive = false
 				}
 			})
-
-			return 0
 		}
 
 		return {
-			tabList,
-			handleTab,
-			activeTab,
+			navList,
+			handleNav,
 		}
 	},
 })
