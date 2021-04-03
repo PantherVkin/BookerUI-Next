@@ -49,6 +49,11 @@ const router = createRouter({
           name: 'dropdown',
           component: () => import('./page/component/DropDownPage.vue'),
         },
+        {
+          path: '/component/table',
+          name: 'table',
+          component: () => import('./page/component/TablePage.vue'),
+        },
       ]
       
     },

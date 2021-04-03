@@ -6,8 +6,11 @@
 				<tr>
 					<th
 						class="z-attr-title"
-						v-for="(item, index) in columns"
+						v-for="(item, index) in tableColumns"
 						:key="'th' + index"
+						:class="{
+							border: border
+						}"
 					>
 						{{ item.title }}
 					</th>
@@ -17,6 +20,9 @@
 				<tr v-for="(item, index) in data" :key="'tr' + index">
 					<td
 						class="z-attr-title td"
+						:class="{
+							border: border
+						}"
 						v-for="(value, key) in item"
 						:key="'tr' + key"
 					>
@@ -41,9 +47,18 @@ export default defineComponent({
 		data: {
 			type: Object,
 		},
+		columns: {
+			type: Array,
+		},
+		border: {
+			type: Boolean,
+			default: false
+		}
 	},
-	setup() {
-		const columns = [
+	setup(props) {
+
+
+		const tableColumns = props.columns || [
 			{
 				title: '参数',
 				dataIndex: 'params',
@@ -70,8 +85,9 @@ export default defineComponent({
 				key: 'age',
 			},
 		]
+
 		return {
-			columns,
+			tableColumns,
 		}
 	},
 })
@@ -81,10 +97,11 @@ export default defineComponent({
 .z-attr {
 	width: 100%;
 	overflow-x: auto;
+	margin-bottom: 40px;
+
 	h2 {
 		color: #1f2f3d;
 		font-size: 22px;
-		margin: 55px 0 0 0 ;
 	}
 	.attr-table {
 		width: 100%;
@@ -101,9 +118,17 @@ export default defineComponent({
 		border-bottom: 1px solid #dcdfe6;
 		padding: 15px;
 		max-width: 250px;
+
+		&.border {
+			border: 1px solid #dcdfe6;
+		}
 	}
 	.td {
 		color: #1f2f3d;
+
+		&.border {
+			border: 1px solid #dcdfe6;
+		}
 	}
 }
 </style>

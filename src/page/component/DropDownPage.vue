@@ -107,14 +107,14 @@ export default defineComponent({
 			{
 				params: 'DropDown',
 				desc: '下拉列表，通常是 <drop-down-item> 组件',
-				type: 'component',
+				type: 'Component',
 				select: 'DropDownItem',
 				default: '/',
 			},
 			{
 				params: 'DropDownItem',
 				desc: '触发下拉列表显示的元素。 注意： 必须是一个元素或者或者组件',
-				type: 'component',
+				type: 'Component',
 				select: '*',
 				default: '/',
 			},
