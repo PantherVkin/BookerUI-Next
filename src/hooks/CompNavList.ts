@@ -38,4 +38,10 @@ export const CompNavList = [
         fullPath: '/component/loading',
         isActive: false,
     },
+    {
+        title: 'Message 消息提示',
+        router: 'message',
+        fullPath: '/component/message',
+        isActive: false,
+    },
 ]
