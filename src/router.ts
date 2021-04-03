@@ -59,8 +59,12 @@ const router = createRouter({
           name: 'loading',
           component: () => import('./page/component/LoadingPage.vue'),
         },
+        {
+          path: '/component/message',
+          name: 'message',
+          component: () => import('./page/component/MessagePage.vue'),
+        },
       ]
-      
     },
     {
       path: '/resource',
