@@ -130,4 +130,11 @@ export default defineComponent({
 		}
 	}
 }
+
+p {
+	color: #5e6d82;
+}
+h2 {
+	color: #1f2f3d;
+}
 </style>

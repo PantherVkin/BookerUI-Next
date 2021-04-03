@@ -1,4 +1,8 @@
 <template>
+	<div>
+		<h2>Dropdown 下拉菜单</h2>
+		<p>将动作或菜单折叠到下拉菜单中。</p>
+	</div>
 	<demo-show
 		title="基础用法"
 		description="DropDown的基础用法。"

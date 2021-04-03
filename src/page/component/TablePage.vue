@@ -1,4 +1,8 @@
 <template>
+	<div>
+		<h2>Table 表格</h2>
+		<p>用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。</p>
+	</div>
 	<demo-show
 		title="基础用法"
 		description="基础的表格展示用法。"
