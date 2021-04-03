@@ -26,4 +26,10 @@ export const CompNavList = [
         fullPath: '/component/dropdown',
         isActive: false,
     },
+    {
+        title: 'Table 表格',
+        router: 'table',
+        fullPath: '/component/table',
+        isActive: false,
+    },
 ]
