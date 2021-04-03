@@ -32,4 +32,10 @@ export const CompNavList = [
         fullPath: '/component/table',
         isActive: false,
     },
+    {
+        title: 'Loading 加载中',
+        router: 'loading',
+        fullPath: '/component/loading',
+        isActive: false,
+    },
 ]

@@ -75,6 +75,7 @@ export default defineComponent({
 		border-bottom: 1px solid #ccc;
 		padding: 10px;
 		display: flex;
+		flex-wrap: wrap;
 	}
 
 	.container {

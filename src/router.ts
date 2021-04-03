@@ -54,6 +54,11 @@ const router = createRouter({
           name: 'table',
           component: () => import('./page/component/TablePage.vue'),
         },
+        {
+          path: '/component/loading',
+          name: 'loading',
+          component: () => import('./page/component/LoadingPage.vue'),
+        },
       ]
       
     },
