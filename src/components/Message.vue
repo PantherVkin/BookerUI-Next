@@ -1,29 +1,31 @@
 <template>
 	<div
-		v-if="messageData.status"
+		v-if="isShow"
 		class="message"
 		:class="{
-			['message-' + messageData.type]: messageData.status,
+			['message-' + messageData.type]: isShow,
 		}"
 	>
 		<i
 			class="iconfont"
 			:class="{
-				['icon-' + messageData.type]: messageData.status,
+				['icon-' + messageData.type]: isShow,
 			}"
 		></i>
-		<div class="content">{{ messageData.message }}</div>
+		<div class="content" v-if="messageData.useHtml" v-html="messageData.message"></div>
+		<div class="content" v-else>{{ messageData.message }}</div>
 		<i class="iconfont icon-close" @click="handleClick"></i>
 	</div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, reactive, onMounted } from 'vue'
+import { defineComponent, PropType, reactive, ref, onMounted } from 'vue'
 
 interface MessageProps {
 	type: 'success' | 'error' | 'info' | 'warning'
 	message: string
-	status: boolean
 	timeout?: number
+	onClose?: any
+	useHtml?: boolean
 }
 
 export default defineComponent({
@@ -33,26 +35,28 @@ export default defineComponent({
 			default: {
 				type: 'success',
 				message: '这是一条成功的消息',
-				status: true,
-				timeout: 3000
+				timeout: 3000,
+				useHtml: false
 			}
 		},
 	},
 	setup(props) {
 		const messageData = reactive(props.message)
+		const isShow = ref(true)
 
 		onMounted(() => {
 			setTimeout(() => {
-				messageData.status = false
+				isShow.value = false
 			}, messageData.timeout)
 		})
 
 		const handleClick = () => {
-			messageData.status = false
+			isShow.value = false
+			messageData.onClose && messageData.onClose()
 		}
-
 		return {
 			messageData,
+			isShow,
 			handleClick
 		}
 	},
