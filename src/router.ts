@@ -64,6 +64,11 @@ const router = createRouter({
           name: 'message',
           component: () => import('./page/component/MessagePage.vue'),
         },
+        {
+          path: '/component/modal',
+          name: 'modal',
+          component: () => import('./page/component/ModalPage.vue'),
+        },
       ]
     },
     {

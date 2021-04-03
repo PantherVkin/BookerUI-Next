@@ -44,4 +44,10 @@ export const CompNavList = [
         fullPath: '/component/message',
         isActive: false,
     },
+    {
+        title: 'Modal 对话框',
+        router: 'modal',
+        fullPath: '/component/modal',
+        isActive: false,
+    },
 ]
