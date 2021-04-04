@@ -69,6 +69,11 @@ const router = createRouter({
           name: 'modal',
           component: () => import('./page/component/ModalPage.vue'),
         },
+        {
+          path: '/component/validateinput',
+          name: 'validateinput',
+          component: () => import('./page/component/ValidateInputPage.vue'),
+        },
       ]
     },
     {
