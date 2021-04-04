@@ -50,4 +50,10 @@ export const CompNavList = [
         fullPath: '/component/modal',
         isActive: false,
     },
+    {
+        title: 'Input 输入框',
+        router: 'validateinput',
+        fullPath: '/component/validateinput',
+        isActive: false,
+    },
 ]
