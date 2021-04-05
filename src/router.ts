@@ -79,6 +79,11 @@ const router = createRouter({
           name: 'validateform',
           component: () => import('./page/component/ValidateFormPage.vue'),
         },
+        {
+          path: '/component/uploading',
+          name: 'uploading',
+          component: () => import('./page/component/UpLoadingPage.vue'),
+        },
       ]
     },
     {
