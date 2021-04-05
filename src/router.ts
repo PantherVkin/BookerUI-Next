@@ -3,10 +3,14 @@ import Guide from './layout/Guide.vue'
 import Component from './layout/Component.vue'
 import Resource from './layout/Resource.vue'
 
-const routerHistory = createWebHistory()
+const routerHistory = createWebHistory('bookerui-next')
 const router = createRouter({
   history: routerHistory,
   routes: [
+    {
+      path: '/',
+      redirect: '/guide/design',
+    },
     {
       path: '/guide',
       name: 'guide',
