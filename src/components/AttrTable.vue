@@ -97,7 +97,7 @@ export default defineComponent({
 .z-attr {
 	width: 100%;
 	overflow-x: auto;
-	margin-bottom: 40px;
+	margin-top: 25px;
 
 	h2 {
 		color: #1f2f3d;

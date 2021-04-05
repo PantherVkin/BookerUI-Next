@@ -77,8 +77,9 @@ export default defineComponent({
 	.left {
 		padding: 30px 0 0 40px;
 		width: 200px;
-		height: 800px;
+		height: 100vh;
 		overflow: scroll;
+		position: fixed;
 		background-color: #ff0;
 
 		.active {
@@ -87,7 +88,7 @@ export default defineComponent({
 	}
 
 	.content {
-		background-color: #0ff;
+		margin-left: 240px;
 		padding: 30px 20px;
 		flex-grow: 1;
 	}
