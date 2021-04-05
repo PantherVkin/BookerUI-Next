@@ -95,7 +95,8 @@ export default defineComponent({
 		width: 200px;
 		overflow: scroll;
 		flex-shrink: 0;
-		background-color: #ff0;
+		position: fixed;
+		height: 80vh;
 
 		.active {
 			color: #1989fa;
@@ -104,6 +105,7 @@ export default defineComponent({
 
 	.content {
 		padding: 30px 20px;
+		margin-left: 240px;
 		flex-grow: 1;
 	}
 

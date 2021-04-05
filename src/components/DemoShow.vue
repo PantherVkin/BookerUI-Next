@@ -64,7 +64,7 @@ export default defineComponent({
 
 	h2 {
 		font-size: 22px;
-		margin: 55px 0 20px;
+		margin-top: 40px;
 	}
 }
 .wrap {
