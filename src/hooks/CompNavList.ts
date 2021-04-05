@@ -56,4 +56,10 @@ export const CompNavList = [
         fullPath: '/component/validateinput',
         isActive: false,
     },
+    {
+        title: 'Form 表单',
+        router: 'validateform',
+        fullPath: '/component/validateform',
+        isActive: false,
+    },
 ]
