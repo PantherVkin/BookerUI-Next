@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.0.0-beta3",
+    "mitt": "^2.1.0",
     "prismjs": "^1.23.0",
     "vue": "^3.0.0",
     "vue-prismjs": "^1.2.0",

@@ -44,7 +44,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, PropType, reactive, onMounted } from 'vue'
-// import { emitter } from './ValidateForm.vue'
+import { emitter } from './ValidateForm.vue'
 
 interface RuleProp {
 	type: 'required' | 'email' | 'password' | 'custom'
@@ -114,7 +114,7 @@ export default defineComponent({
 		}
 
 		onMounted(() => {
-			// emitter.emit('item-created', onValidate)
+			emitter.emit('item-created', onValidate)
 		})
 
 		// v-model
@@ -133,6 +133,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .validate-wrap {
+	margin-bottom: 10px;
+
 	.validate-input {
 		color: #5e6d82;
 		display: flex;
