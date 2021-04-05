@@ -9,9 +9,15 @@
 			<p>BookerUI-Next 是一个基于 Vue3 的高质量UI组件库。</p>
 		</div>
 		<div class="design-item">
-			<h2>Vue3 驱动</h2>
+			<h2>基于 Vue3 </h2>
 			<p>
-				Vue是一套用于构建用户界面的渐进式JavaScript框架,本项目是基于Vue3.x上开发。
+				Vue是一套用于构建用户界面的渐进式JavaScript框架,本项目是基于Vue3.x上开发，使用Composition API。
+			</p>
+		</div>
+		<div class="design-item">
+			<h2>TypeScript 驱动</h2>
+			<p>
+				源代码采用 TypeScript 书写，对代码中所有的标识符（变量、函数、参数、返回值）进行类型检查。
 			</p>
 		</div>
 		<div class="design-item">
