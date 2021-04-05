@@ -80,7 +80,6 @@ export default defineComponent({
 		height: 100vh;
 		overflow: scroll;
 		position: fixed;
-		background-color: #ff0;
 
 		.active {
 			color: #1989fa;
