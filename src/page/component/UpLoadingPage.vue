@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<h2>Upload 上传</h2>
-		<p>通过点击或者拖拽上传文件。</p>
+		<h2>Uploading 上传</h2>
+		<p>通过点击上传文件。</p>
 	</div>
 
 	<demo-show
