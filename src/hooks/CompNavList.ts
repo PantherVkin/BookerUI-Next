@@ -62,4 +62,10 @@ export const CompNavList = [
         fullPath: '/component/validateform',
         isActive: false,
     },
+    {
+        title: 'Uploading 上传',
+        router: 'uploading',
+        fullPath: '/component/uploading',
+        isActive: false,
+    },
 ]
